@@ -16,8 +16,6 @@ print (chr(27)+"[33m"+"Github: https://github.com/Arest7")
 
 try:
     check_pip3 = subprocess.check_output('dpkg -s python3-pip', shell=True)
-    if str('install ok installed') in str(check_pip3):
-        pass
 except subprocess.CalledProcessError:
     print('[+] pip3 not installed')
     subprocess.check_output('sudo apt update',shell=True)
@@ -57,10 +55,11 @@ def change():
 
 def get_tor_ip():
     session = requests.session()
-   
-    session.proxies = {}
-    session.proxies['http']='socks5://localhost:9050'
-    session.proxies['https']='socks5://localhost:9050'
+
+    session.proxies = {
+        'http': 'socks5://localhost:9050',
+        'https': 'socks5://localhost:9050',
+    }
 
     try:
         r = session.get('http://httpbin.org/ip')
@@ -75,16 +74,16 @@ lin = input("[+] How many time do you want to change your Ip ~")
 
 if int(lin) ==int(0):
 
-	while True:
-		try:
-			time.sleep(int(x))
-			change()
-		except KeyboardInterrupt:
+    while True:
+    	try:
+    		time.sleep(int(x))
+    		change()
+    	except KeyboardInterrupt:
 
-		 	print('\nauto tor is closed ')
-		 	quit()
+    	 	print('\nauto tor is closed ')
+    	 	quit()
 
 else:
-	for i in range(int(lin)):
-		    time.sleep(int(x))
-		    change()
+    for _ in range(int(lin)):
+        time.sleep(int(x))
+        change()
